@@ -67,11 +67,17 @@ const loginUser = asyncHandler (async (req, res) => {
     }
 })
 
-// @desc RGet User Data
+// @desc Get User Data
 // @route GET api/users/me
 // @access Public
 const getMe = asyncHandler (async (req, res) => {
-    res.json({message: 'User data display'})
+    const {_id, email, name} = await User.findOne(req.user.id)
+
+    res.status(200).json({
+        id: _id,
+        name,
+        email
+    })
 })
 
 // Generate a token
